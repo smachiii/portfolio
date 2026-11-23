@@ -6,8 +6,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  // TODO: 本番のURL（独自ドメイン or *.workers.dev）に変更
-  site: 'https://example.com',
+  // 本番URL。独自ドメインに移行したら変更する
+  site: 'https://s-machino.netlify.app',
   integrations: [mdx(), react()],
   vite: {
     plugins: [tailwindcss()],

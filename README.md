@@ -1,6 +1,6 @@
 # Satomi's Portfolio
 
-Astro / Tailwind CSS v4 / MDX / Cloudflare Workers (Static Assets)
+Astro / Tailwind CSS v4 / MDX / Netlify（将来 Cloudflare Workers に移行予定）
 
 ## セットアップ
 
@@ -29,22 +29,31 @@ src/
   pages/              ルーティング（/works/[slug] は実績から自動生成）
   styles/global.css   Tailwind とデザイントークン（@theme）
 public/_redirects     旧URL（/case02 など）→ 新URL（/works/case02）
-wrangler.jsonc        Cloudflare の設定
+netlify.toml          Netlify のビルド設定
+wrangler.jsonc        Cloudflare の設定（移行時用）
 ```
 
-## デプロイ（Cloudflare Workers）
+## デプロイ（Netlify）
 
-1. `astro.config.mjs` の `site` を本番URLに変更
-2. `pnpm wrangler login`
-3. `pnpm run deploy`（`pnpm deploy` は pnpm 自体のコマンドと被るので `run` を付ける）
+`main` に push すると Netlify が自動でビルド・公開する（設定は `netlify.toml`）。公開URL: https://s-machino.netlify.app/
 
-GitHub 連携で自動デプロイする場合は、Cloudflare ダッシュボードの Workers & Pages → Create → Import a repository から接続する（ビルドコマンド `pnpm build`、デプロイコマンド `pnpm wrangler deploy`）。
+- 旧 Nuxt 版のコードは `nuxt-legacy` ブランチと `v1-nuxt` タグに残してある
+- `public/_redirects` は Netlify でもそのまま有効
+
+### 将来 Cloudflare Workers に移すとき
+
+独自ドメインを取るタイミングで移す想定。`wrangler.jsonc` は用意済み。
+
+1. `astro.config.mjs` の `site` を新しいURLに変更
+2. `pnpm wrangler login` → `pnpm run deploy`（`pnpm deploy` は pnpm 自体のコマンドと被るので `run` を付ける）
+3. GitHub 連携するなら Cloudflare ダッシュボードの Workers & Pages → Create → Import a repository（ビルドコマンド `pnpm build`、デプロイコマンド `pnpm wrangler deploy`）
+4. Netlify 側は消さずに、`_redirects` を `/* https://新URL/:splat 301!` だけにして転送する
+5. お問い合わせフォームを Netlify Forms で作っていたら、送信先を差し替える
 
 ## 残タスク
 
-- [ ] 最初のコミット & GitHub に push
-- [ ] 独自ドメインの取得（Cloudflare Registrar）→ Worker に Custom Domain 追加 → `site` を本番URLに変更
+- [ ] GitHub の main を新コードに置き換え（旧コードは nuxt-legacy / v1-nuxt に退避）
+- [ ] 独自ドメインの取得 → Cloudflare へ移行（上の手順）
 - [ ] サイトマップ（`pnpm astro add sitemap`）→ Google Search Console に登録・送信
-- [ ] お問い合わせフォームの送信先（Formspree など or Cloudflare アダプター + API ルート、スパム対策に Turnstile）。今は `/contact` のボタンを無効にしてある
-- [ ] 旧 Netlify サイトから新URLへの転送（旧サイトは消さずに `_redirects` に `/* https://新URL/:splat 301!` だけ置く）
+- [ ] お問い合わせフォーム（Netlify の間は Netlify Forms が使える）。今は `/contact` のボタンを無効にしてある
 - [ ] 必要に応じて ESLint（`eslint-plugin-astro`）を追加

@@ -1,12 +1,12 @@
 # Portfolio (Astro)
 
-Satomi Machino のポートフォリオサイト。Astro + Tailwind CSS v4 で静的出力し、Cloudflare Workers（Static Assets）に配信する。
+Satomi Machino のポートフォリオサイト。Astro + Tailwind CSS v4 で静的出力し、Netlify に配信している（`main` への push で自動デプロイ、設定は `netlify.toml`）。将来は Cloudflare Workers（Static Assets）に移行予定で、`wrangler.jsonc` はそのためのもの。
 
 ## コマンド（パッケージマネージャーは pnpm）
 - `pnpm dev` … 開発サーバー
 - `pnpm build` … 型チェック（astro check）+ ビルド
-- `pnpm preview` … ビルドして wrangler でローカル確認
-- `pnpm run deploy` … Cloudflare にデプロイ
+- `pnpm preview` … ビルドして wrangler でローカル確認（Cloudflare 移行後向け。今は `pnpm astro preview` でも可）
+- `pnpm run deploy` … Cloudflare にデプロイ（移行後に使う。今は使わない）
 - `pnpm format` … Prettier（Tailwind のクラス順も整列）
 
 ## 環境の前提

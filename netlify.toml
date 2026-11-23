@@ -1,0 +1,5 @@
+# Netlify のビルド設定（ダッシュボードの設定より優先される）
+# Node のバージョンは .node-version、pnpm は pnpm-lock.yaml から自動判定される
+[build]
+  command = "pnpm build"
+  publish = "dist"
