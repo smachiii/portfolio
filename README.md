@@ -44,7 +44,7 @@ wrangler.jsonc        Cloudflare の設定（移行時用）
 
 独自ドメインを取るタイミングで移す想定。`wrangler.jsonc` は用意済み。
 
-1. `astro.config.mjs` の `site` を新しいURLに変更
+1. `astro.config.mjs` の `site` と `public/robots.txt` の Sitemap 行を新しいURLに変更
 2. `pnpm wrangler login` → `pnpm run deploy`（`pnpm deploy` は pnpm 自体のコマンドと被るので `run` を付ける）
 3. GitHub 連携するなら Cloudflare ダッシュボードの Workers & Pages → Create → Import a repository（ビルドコマンド `pnpm build`、デプロイコマンド `pnpm wrangler deploy`）
 4. Netlify 側は消さずに、`_redirects` を `/* https://新URL/:splat 301!` だけにして転送する
@@ -54,6 +54,6 @@ wrangler.jsonc        Cloudflare の設定（移行時用）
 
 - [ ] GitHub の main を新コードに置き換え（旧コードは nuxt-legacy / v1-nuxt に退避）
 - [ ] 独自ドメインの取得 → Cloudflare へ移行（上の手順）
-- [ ] サイトマップ（`pnpm astro add sitemap`）→ Google Search Console に登録・送信
+- [ ] Google Search Console に登録し、`sitemap-index.xml` を送信
 - [ ] お問い合わせフォーム（Netlify の間は Netlify Forms が使える）。今は `/contact` のボタンを無効にしてある
 - [ ] 必要に応じて ESLint（`eslint-plugin-astro`）を追加
