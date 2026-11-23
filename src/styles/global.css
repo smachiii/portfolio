@@ -1,0 +1,50 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/*
+ * デザイントークン（旧 assets/scss/config.scss から移植）
+ * 色・フォント・サイズはここに集約し、コンポーネントでは任意値（text-[13px] など）を使わない。
+ */
+@theme {
+  --font-sans: 'Noto Sans JP', sans-serif;
+  --font-en: 'Quicksand', sans-serif;
+
+  --color-primary: #7f9fc7;
+  --color-primary-hover: #6c88ab;
+  --color-secondary: #cccccc;
+  --color-ink: #333333;
+  --color-surface: #ffffff;
+  --color-muted: #eeeeee;
+
+  /* ヘッダー・フッターの高さ（旧 $tbHeight） */
+  --spacing-bar: 70px;
+
+  /* コンテンツ幅（旧 $inner） */
+  --container-inner: 1280px;
+
+  --radius-panel: 10px;
+  --shadow-panel: 10px 10px 30px rgb(51 51 51 / 0.1);
+  --shadow-card: 0 3px 12px rgb(0 0 0 / 0.2);
+
+  --leading-body: 2.6;
+  --tracking-heading: 0.25em;
+  --tracking-body: 0.1em;
+}
+
+@layer base {
+  body {
+    @apply bg-cover bg-top-left font-sans text-sm leading-body font-light tracking-body text-ink sm:text-base lg:bg-fixed;
+    background-image: url('../assets/images/common/main.jpg');
+    min-height: 100svh;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply tracking-heading;
+  }
+
+  a {
+    @apply transition-all duration-500 hover:text-primary hover:opacity-60;
+  }
+}

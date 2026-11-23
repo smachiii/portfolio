@@ -1,0 +1,43 @@
+---
+/**
+ * 旧サイトではナビから外していたページ。Netlify Forms は Cloudflare では使えないため、
+ * 公開する場合は送信先を用意してから action を設定する（README 参照）。
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageTitle from '@/components/PageTitle.astro';
+import Panel from '@/components/Panel.astro';
+
+const FORM_ACTION = ''; // TODO: Formspree の URL や /api/contact など
+const fieldClass = 'w-full rounded-md border-none bg-muted px-4 py-2.5 outline-primary sm:flex-1';
+const labelClass = 'flex flex-wrap items-center gap-y-1 sm:flex-nowrap';
+const labelTextClass = 'w-full font-en font-normal sm:w-1/5';
+---
+
+<BaseLayout title="Contact" noindex>
+  <PageTitle>Contact</PageTitle>
+  <Panel>
+    <form method="POST" action={FORM_ACTION || undefined} class="space-y-8">
+      <label class={labelClass}>
+        <span class={labelTextClass}>Your Name</span>
+        <input type="text" name="name" required autocomplete="name" class={fieldClass} />
+      </label>
+      <label class={labelClass}>
+        <span class={labelTextClass}>Your Email</span>
+        <input type="email" name="email" required autocomplete="email" class={fieldClass} />
+      </label>
+      <label class={labelClass}>
+        <span class={labelTextClass}>Message</span>
+        <textarea name="message" rows="6" required class={fieldClass}></textarea>
+      </label>
+      <p class="text-center">
+        <button
+          type="submit"
+          disabled={!FORM_ACTION}
+          class="mt-6 h-15 w-60 rounded-md bg-primary font-en tracking-body text-surface transition-colors duration-500 hover:bg-primary-hover disabled:opacity-50 sm:mt-14"
+        >
+          Send
+        </button>
+      </p>
+    </form>
+  </Panel>
+</BaseLayout>

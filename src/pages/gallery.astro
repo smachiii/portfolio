@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageTitle from '@/components/PageTitle.astro';
+import Panel from '@/components/Panel.astro';
+import { gallery } from '@/data/gallery';
+---
+
+<BaseLayout title="Gallery">
+  <PageTitle>Gallery</PageTitle>
+  <Panel>
+    <ul class="grid grid-cols-2 gap-x-5 gap-y-8 sm:gap-x-8 md:grid-cols-3">
+      {
+        gallery.map((item) => (
+          <li>
+            <a href={item.url} target="_blank" rel="noopener" class="group block hover:opacity-100">
+              <div class="overflow-hidden rounded-md shadow-card">
+                <Image
+                  src={item.image}
+                  alt=""
+                  widths={[320, 480, 720]}
+                  sizes="(min-width: 768px) 33vw, 50vw"
+                  class="w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div class="mt-2.5 text-xs leading-loose sm:text-sm">
+                <span class="rounded-xs bg-muted px-1.5 py-0.5">{item.category}</span>
+                <span class="block">
+                  {item.date} | {item.title}
+                </span>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Panel>
+</BaseLayout>

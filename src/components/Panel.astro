@@ -1,0 +1,17 @@
+---
+// すりガラス風のコンテンツパネル（旧 .contents）
+interface Props {
+  as?: 'div' | 'section' | 'article';
+  class?: string;
+}
+const { as: Tag = 'div', class: className } = Astro.props;
+---
+
+<Tag
+  class:list={[
+    'mx-auto mb-14 w-full max-w-inner rounded-panel bg-surface/80 p-6 shadow-panel backdrop-blur-md sm:p-12 lg:mb-24 xl:p-18',
+    className,
+  ]}
+>
+  <slot />
+</Tag>

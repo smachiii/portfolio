@@ -1,0 +1,22 @@
+---
+// 旧 nuxt.config.js の google-gtag 設定を移植。本番ビルドのときだけ読み込む。
+// Cloudflare Web Analytics に切り替える場合はこのファイルを差し替える。
+const GA_ID = 'G-WJ6W8LFK7H';
+const enabled = import.meta.env.PROD;
+---
+
+{
+  enabled && (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+      <script is:inline define:vars={{ GA_ID }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', GA_ID);
+      </script>
+    </>
+  )
+}

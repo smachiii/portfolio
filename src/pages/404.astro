@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageTitle from '@/components/PageTitle.astro';
+import Panel from '@/components/Panel.astro';
+---
+
+<BaseLayout title="Not Found" noindex>
+  <PageTitle>404</PageTitle>
+  <Panel class="text-center">
+    <p>お探しのページは見つかりませんでした。</p>
+    <p class="mt-6 font-en"><a href="/">Back to Home</a></p>
+  </Panel>
+</BaseLayout>

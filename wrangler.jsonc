@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "portfolio",
+  "compatibility_date": "2026-11-21",
+  // 静的サイトなので Worker スクリプトは不要。dist をそのまま配信する
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}
