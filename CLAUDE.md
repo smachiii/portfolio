@@ -17,7 +17,8 @@ Satomi Machino のポートフォリオサイト。Astro + Tailwind CSS v4 で�
 ## ルール
 - ページ・レイアウトは `.astro` で書く。React（`.tsx`）は状態や操作が必要な部品だけに使い、`client:visible` など最小の client ディレクティブで読み込む。
 - スタイルは Tailwind のユーティリティで書く。色・フォント・余白・角丸・影は `src/styles/global.css` の `@theme` に定義したトークンを使い、任意値（`text-[13px]`、`bg-[#fff]` など）は使わない。必要なら先に `@theme` にトークンを追加する。
-- 画像は `src/assets/` に置き、`astro:assets` の `<Image />` で表示する（`public/` に置かない）。
+- 行間は2種類だけ: 見出し・ラベル・タグ・短い1行テキストは `leading-heading`（h1〜h4 は既定で適用）、文章は `leading-body`（body の既定なので指定不要）。`leading-snug` / `leading-loose` などは使わない。タグの高さは行間ではなく `py-*` で調整する。
+- 画像は `src/assets/` に置く（`public/` に置かない）。旧サイトから移した低解像度の画像は、再圧縮で劣化しないよう `OriginalImage`（元ファイルをそのまま配信）で表示する。新しく高解像度の画像を追加・差し替えたときは `astro:assets` の `<Image />` を使ってよい。
 - 実績の追加は `src/content/works/<id>.mdx` を作るだけ。frontmatter のスキーマは `src/content.config.ts`。
 - ギャラリーの追加は `src/data/gallery.ts` に1行追加し、画像を `src/assets/images/gallery/` に置く。
 - 共通パーツ: `PageTitle`（h1）、`Panel`（すりガラスのコンテンツ枠）、`SectionTitle`（h2）。

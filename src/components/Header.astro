@@ -19,9 +19,17 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
             <a
               href={href}
               aria-current={isActive(href) ? 'page' : undefined}
-              class="font-en font-medium aria-[current=page]:border-b aria-[current=page]:pb-1"
+              class="relative font-en font-medium"
             >
               {label}
+              {/* 下線は全ページで同じ transition:name を持つので、ページ遷移時に次の項目へスライドする */}
+              {isActive(href) && (
+                <span
+                  transition:name="nav-indicator"
+                  aria-hidden="true"
+                  class="absolute inset-x-0 -bottom-1 h-px bg-current"
+                />
+              )}
             </a>
           </li>
         ))

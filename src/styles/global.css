@@ -7,7 +7,7 @@
  */
 @theme {
   --font-sans: 'Noto Sans JP', sans-serif;
-  --font-en: 'Quicksand', sans-serif;
+  --font-en: 'Quicksand', 'Noto Sans JP', sans-serif;
 
   --color-primary: #7f9fc7;
   --color-primary-hover: #6c88ab;
@@ -26,6 +26,8 @@
   --shadow-panel: 10px 10px 30px rgb(51 51 51 / 0.1);
   --shadow-card: 0 3px 12px rgb(0 0 0 / 0.2);
 
+  /* 行間は2種類だけ使う: 見出し・ラベル・タグ = heading / 文章 = body（body の既定） */
+  --leading-heading: 1.6;
   --leading-body: 2.6;
   --tracking-heading: 0.25em;
   --tracking-body: 0.1em;
@@ -40,11 +42,57 @@
 
   h1,
   h2,
+  h3,
+  h4 {
+    @apply leading-heading;
+  }
+
+  h1,
+  h2,
   h3 {
     @apply tracking-heading;
   }
 
   a {
     @apply transition-all duration-500 hover:text-primary hover:opacity-60;
+  }
+}
+
+/* 初回表示のフェードイン（旧 body の fadeIn 3s）。
+   html はページ遷移で差し替わらないので、最初の1回だけ再生される */
+html {
+  animation: site-fade-in 3s ease both;
+}
+
+@keyframes site-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ページ遷移（BaseLayout の pageTransition から使う） */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+@keyframes page-leave {
+  to {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+
+/* ナビ下線のスライド（Header の transition:name="nav-indicator"） */
+::view-transition-group(nav-indicator) {
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    animation: none;
   }
 }

@@ -1,0 +1,27 @@
+---
+/**
+ * 画像を再圧縮せず、元ファイルのまま配信する <img>。
+ * 旧サイトから移した画像は解像度が低く（サムネイル 580px、ギャラリー 306px など）、
+ * <Image /> で WebP に変換すると二重圧縮で劣化するため、こちらを使う。
+ * 高解像度の画像に差し替えたら astro:assets の <Image /> に戻してよい。
+ */
+import type { ImageMetadata } from 'astro';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> {
+  src: ImageMetadata;
+  alt: string;
+}
+
+const { src, alt, loading = 'lazy', decoding = 'async', ...rest } = Astro.props;
+---
+
+<img
+  src={src.src}
+  width={src.width}
+  height={src.height}
+  alt={alt}
+  loading={loading}
+  decoding={decoding}
+  {...rest}
+/>

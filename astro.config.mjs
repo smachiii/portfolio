@@ -9,6 +9,10 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   // 本番URL。独自ドメインに移行したら変更する
   site: 'https://s-machino.netlify.app',
+  image: {
+    // About のプロフィール画像（GitHub のアイコン）をビルド時に取得・最適化するため
+    domains: ['avatars.githubusercontent.com'],
+  },
   integrations: [
     mdx(),
     react(),

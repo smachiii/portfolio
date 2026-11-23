@@ -4,6 +4,7 @@ import '@fontsource/noto-sans-jp/400.css';
 import '@fontsource/quicksand/400.css';
 import '@fontsource/quicksand/500.css';
 import '@/styles/global.css';
+import type { TransitionDirectionalAnimations } from 'astro';
 import { ClientRouter } from 'astro:transitions';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
@@ -21,6 +22,18 @@ const {
   description = 'Webデザイナー / フロントエンドエンジニア Satomi Machino のポートフォリオサイト',
   noindex = false,
 } = Astro.props;
+// ページ遷移アニメーション（旧 Nuxt の page transition を再現）
+// 旧ページが下にずれながら消え、そのあと新ページが下からふわっと出てくる
+const easing = 'cubic-bezier(1, 0.25, 0.25, 1)';
+const pageAnimation = {
+  old: { name: 'page-leave', duration: '0.3s', easing, fillMode: 'both' },
+  new: { name: 'page-enter', duration: '0.5s', delay: '0.3s', easing, fillMode: 'both' },
+};
+const pageTransition: TransitionDirectionalAnimations = {
+  forwards: pageAnimation,
+  backwards: pageAnimation,
+};
+
 const pageTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -45,7 +58,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body class="px-4 sm:px-6 lg:px-10">
     <Header />
-    <main class="flex flex-col" transition:animate="fade">
+    <main class="flex flex-col" transition:animate={pageTransition}>
       <slot />
     </main>
     <Footer />
